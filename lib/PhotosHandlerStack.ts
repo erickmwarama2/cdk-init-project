@@ -3,11 +3,11 @@ import { Code, Function as LambdaFunction, Runtime } from "aws-cdk-lib/aws-lambd
 import { Construct } from "constructs";
 
 export class PhotosHandlerStack extends Stack {
-    private stackSuffix: string;
-    private targetBucket = Fn.importValue('photos-bucket');
 
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
+
+        const targetBucket = Fn.importValue('photos-bucket');
 
         new LambdaFunction(this, 'PhotosHandler', {
             runtime: Runtime.NODEJS_18_X,
@@ -18,7 +18,7 @@ export class PhotosHandlerStack extends Stack {
                 }
                 `),
             environment: {
-                TARGET_BUCKET: this.targetBucket,
+                TARGET_BUCKET: targetBucket,
             }
         });
     }
