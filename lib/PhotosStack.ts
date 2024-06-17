@@ -4,6 +4,7 @@ import { Construct } from "constructs";
 
 export class PhotosStack extends Stack {
     private stackSuffix: string;
+    public readonly photosBucketArn: string;
 
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
@@ -16,10 +17,11 @@ export class PhotosStack extends Stack {
 
         // (myBucket.node.defaultChild as CfnBucket).overrideLogicalId('PhotosBucket1165');
 
-        new CfnOutput(this, 'photos-bucket', {
-            value: myBucket.bucketArn,
-            exportName: 'photos-bucket'
-        });
+        // new CfnOutput(this, 'photos-bucket', {
+        //     value: myBucket.bucketArn,
+        //     exportName: 'photos-bucket'
+        // });
+        this.photosBucketArn = myBucket.bucketArn;
     }
 
     private initializeSuffix() {
