@@ -1,4 +1,4 @@
-import { Fn, Stack, StackProps } from "aws-cdk-lib";
+import { CfnOutput, Fn, Stack, StackProps } from "aws-cdk-lib";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
@@ -15,6 +15,11 @@ export class PhotosStack extends Stack {
         });
 
         // (myBucket.node.defaultChild as CfnBucket).overrideLogicalId('PhotosBucket1165');
+
+        new CfnOutput(this, 'photos-bucket', {
+            value: myBucket.bucketArn,
+            exportName: 'photos-bucket'
+        });
     }
 
     private initializeSuffix() {
